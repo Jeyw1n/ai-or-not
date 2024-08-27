@@ -2,14 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>AI or NOT</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'game_app/style.css' %}">
 </head>
 <body>
-    <h1>game_app/index.html</h1>
+    <h1>AI or NOT</h1>
 
-    <div>
+    <div class="selection">
         <img src="{{ images.0 }}" alt="left image">
         <img src="{{ images.1 }}" alt="right image">
     </div>
+
 </body>
 </html>
