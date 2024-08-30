@@ -1,7 +1,7 @@
 import random
 
 from django.shortcuts import render
-from game.models import ImageModel 
+from .models import ImageModel 
 
 def game_view(request):
     items = list(ImageModel.objects.all())

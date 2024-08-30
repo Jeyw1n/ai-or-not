@@ -5,7 +5,7 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from game.views import game_view
+from apps.game.views import game_view
 
 urlpatterns = [
     path('', game_view),
