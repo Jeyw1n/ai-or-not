@@ -28,6 +28,7 @@ staticfiles/
 .idea/
 *.sublime-project
 *.sublime-workspace
+.vim
 
 # Jupyter Notebook
 .ipynb_checkpoints
