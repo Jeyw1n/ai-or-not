@@ -1,19 +1,32 @@
 import random
 
 from django.shortcuts import render
-from .models import ImageModel 
+from django.http import JsonResponse
+from .models import ImageModel
 
-def game_view(request):
-    items = list(ImageModel.objects.all())
-    random_item = random.choice(items) 
 
-    images_pair = [random_item.real_image, random_item.ai_image]
-    random.shuffle(images_pair)
-    print(images_pair)
-    context = {
-            'images': [
-                images_pair[0].url,
-                images_pair[1].url
-                ]
+def create_game_session_view(request):
+    """
+    Создание игровой сессии.
+    В сессию сохраняется ответ, изображения и id сессии.
+    Возвращает:
+    JsonResponse: словарь с изображениями.
+    """
+
+    if request.method == 'GET':
+        # Достаем случайную пару изображений.
+        items = list(ImageModel.objects.all())
+        random_item = random.choice(items)
+
+        request.session['ai_image'] = random_item.ai_image
+        request.session['real_image'] = random_item.real_image
+
+        print(random_item)
+
+        data = {
+            'images': {
+                'real_img': random_item.real_image.url,
+                'ai_img': random_item.ai_image.url
             }
-    return render(request, 'game_app/index.html', context=context)
+        }
+        return JsonResponse(data)
