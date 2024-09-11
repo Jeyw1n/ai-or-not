@@ -1,5 +1,4 @@
 import random
-
 from django.shortcuts import render
 from django.http import JsonResponse
 from .models import ImageModel
@@ -18,15 +17,25 @@ def create_game_session_view(request):
         items = list(ImageModel.objects.all())
         random_item = random.choice(items)
 
-        request.session['ai_image'] = random_item.ai_image
-        request.session['real_image'] = random_item.real_image
+        # Получаем URL изображений
+        real_image_url = random_item.real_image.url
+        ai_image_url = random_item.ai_image.url
 
-        print(random_item)
+        # Перемешиваем изображения
+        images = [real_image_url, ai_image_url]
+        random.shuffle(images)
 
+        # Сохраняем в сессии, какая картинка настоящая
+        if images[0] == real_image_url:
+            request.session['real_image_index'] = 0
+        else:
+            request.session['real_image_index'] = 1
+
+        # Формируем ответ
         data = {
             'images': {
-                'real_img': random_item.real_image.url,
-                'ai_img': random_item.ai_image.url
+                'real_img': images[0],
+                'ai_img': images[1]
             }
         }
         return JsonResponse(data)
