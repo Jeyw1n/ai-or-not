@@ -1,13 +1,16 @@
-import React from 'react'
+import React from "react";
 
-class Header extends React.Component {
-    render() {
-        return (
-            <header>
-                <p className="App-logo">AI or NOT</p>
-            </header>
-        )
-    }
-}
+function Header({onOpen}) {
+return (
+      <header>
+        <div className="App-logo">
+          <p>AI or NOT</p>
+        </div>
+        <button className="open-button" onClick={() => onOpen()}>
+            Войти
+        </button>
+      </header>
+    );
+  }
 
-export default Header
+export default Header;
